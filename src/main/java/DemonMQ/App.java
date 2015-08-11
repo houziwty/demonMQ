@@ -1,4 +1,4 @@
-package DemonNetty.DemonMQ;
+package DemonMQ;
 
 /**
  * Hello world!
