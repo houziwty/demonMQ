@@ -14,7 +14,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class Sender {
 
-	private static final int SEND_NUMBER = 5;
+	private static final int SEND_NUMBER = 500;
 
 	/**
 	 * @param args
@@ -38,7 +38,7 @@ public class Sender {
 
 		connectionFactory = new ActiveMQConnectionFactory(
 				ActiveMQConnection.DEFAULT_USER,
-				ActiveMQConnection.DEFAULT_PASSWORD, "tcp://127.0.0.1:61616");
+				ActiveMQConnection.DEFAULT_PASSWORD, "tcp://localhost:61616");
 		try {
 			connection = connectionFactory.createConnection();
 
