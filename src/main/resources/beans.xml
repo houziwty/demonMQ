@@ -27,4 +27,18 @@
 	<bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">    <!-- 设置消息队列的名字 -->
 		<constructor-arg index="0" value="subject" />
 	</bean>
+
+	<bean id="listenerContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="concurrentConsumers" value="10" />
+		<property name="connectionFactory" ref="jmsFactory" />
+		<property name="destinationName" value="subject" />
+		<property name="messageListener" ref="messageReceiver" />
+		<property name="pubSubNoLocal" value="false"></property>
+	</bean>
+	<bean id="messageReceiver" class="com.liuyan.jms.consumer.ProxyJMSConsumer">
+		<property name="jmsTemplate" ref="jmsTemplate"></property>
+	</bean>
+
+
 </beans>
