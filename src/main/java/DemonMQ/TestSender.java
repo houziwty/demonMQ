@@ -12,7 +12,7 @@ import org.springframework.jms.core.MessageCreator;
 
 import DemonMQ.common.SpringUtil;
 
-public class HelloSender {
+public class TestSender {
 
 	private static Sender sender = SpringUtil.getBean("sender", Sender.class);
 

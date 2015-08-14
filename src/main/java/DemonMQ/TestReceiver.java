@@ -9,7 +9,7 @@ import org.springframework.jms.core.JmsTemplate;
 
 import DemonMQ.common.SpringUtil;
 
-public class ProxyJMSConsumer {
+public class TestReceiver {
 
 
 private static Receiver receiver=SpringUtil.getBean("receiver", Receiver.class);
