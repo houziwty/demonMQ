@@ -1,18 +1,27 @@
 package DemonMQ;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Message;
+
+import javax.jms.Session;
+
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
+
+import DemonMQ.common.SpringUtil;
 
 public class HelloSender {
+
+	private static Sender sender = SpringUtil.getBean("sender", Sender.class);
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-				new String[]{"classpath:/spring/applicationContext-jms.xml"});
-//		JmsTemplate template=;
+
+		sender.sendInfo();
 	}
 
 }

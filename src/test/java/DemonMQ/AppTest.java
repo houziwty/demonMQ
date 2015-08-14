@@ -1,4 +1,4 @@
-package DemonNetty.DemonMQ;
+package DemonMQ;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

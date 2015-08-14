@@ -1,44 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd          http://www.springframework.org/schema/context           http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 	default-autowire="byName">
+	<!-- <context:component-scan base-package="DemonMQ"/> -->
 	<!-- 配置connectionFactory -->
-	<bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
-		destroy-method="stop">
-		<property name="connectionFactory">
-			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
-				<property name="brokerURL">
-					<value>tcp://127.0.0.1:61616</value>
-				</property>
-			</bean>
-		</property>
-		<property name="maxConnections" value="100"></property>
-	</bean>
-	<!-- Spring JMS Template -->
-	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
-		<property name="connectionFactory">
-			<ref local="jmsFactory" />
-		</property>
-		<property name="defaultDestinationName" value="subject" />   <!-- 区别它采用的模式为false是p2p为true是订阅 -->
-		<property name="pubSubDomain" value="true" />
-	</bean>
-	<!-- 发送消息的目的地（一个队列） -->
-	<bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">    <!-- 设置消息队列的名字 -->
-		<constructor-arg index="0" value="subject" />
-	</bean>
+   <!--创建连接工厂-->
+    <bean id="connectionFactory"
+        class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616"></property>
+    </bean>
+    <!-- 声明ActiveMQ消息目标,目标可以是一个队列，也可以是一个主题ActiveMQTopic-->
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="edu.sjtu.erplab.springactivemq2"></constructor-arg>
+    </bean>
+    <!---->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"></property>
+        <property name="defaultDestination" ref="destination"></property>
+        <property name="receiveTimeout" value="600"></property>
 
-	<bean id="listenerContainer"
-		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
-		<property name="concurrentConsumers" value="10" />
-		<property name="connectionFactory" ref="jmsFactory" />
-		<property name="destinationName" value="subject" />
-		<property name="messageListener" ref="messageReceiver" />
-		<property name="pubSubNoLocal" value="false"></property>
-	</bean>
-	<bean id="messageReceiver" class="com.liuyan.jms.consumer.ProxyJMSConsumer">
-		<property name="jmsTemplate" ref="jmsTemplate"></property>
-	</bean>
+    </bean>
+    <bean id="sender" class="DemonMQ.Sender">
+        <property name="jmsTemplate" ref="jmsTemplate"></property>
 
+    </bean>
+    <bean id="receiver" class="DemonMQ.Receiver">
+        <property name="jmsTemplate" ref="jmsTemplate"></property>
+    </bean>
 
 </beans>
