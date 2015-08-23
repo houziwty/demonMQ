@@ -1,4 +1,4 @@
-package DemonMQ;
+package DemonMQ.server.Impl;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;

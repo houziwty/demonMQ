@@ -4,13 +4,13 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
-
 import javax.jms.Session;
 
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
 import DemonMQ.common.SpringUtil;
+import DemonMQ.server.Impl.Sender;
 
 public class TestSender {
 

@@ -8,6 +8,7 @@ import org.springframework.jms.core.JmsTemplate;
 
 import DemonMQ.common.MQBase;
 import DemonMQ.common.SpringUtil;
+import DemonMQ.server.Impl.Receiver;
 
 public class TestReceiver {
 
