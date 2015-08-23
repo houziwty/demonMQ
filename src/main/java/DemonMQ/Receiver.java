@@ -14,24 +14,28 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.JmsUtils;
 
-import DemonMQ.common.ReceiverBase;
-
-public class Receiver extends ReceiverBase {
+import DemonMQ.common.MQBase;
+public class Receiver extends MQBase {
 
 
 	/**
 	 * 构造函数
 	 */
 	public Receiver() {
+		
+		key="lastName";
 	}
 
-	public String receiveMessage() {
+	
+
+	@Override
+	public String handleMessage() {
 		String my = "";
 		MapMessage message = (MapMessage) jmsTemplate.receive();
 		
 		try {
 			if (message != null)
-				my = message.getString("lastName");
+				my = message.getString(getKey());
 		} catch (JMSException e) {
 			throw JmsUtils.convertJmsAccessException(e);
 		}

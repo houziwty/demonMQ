@@ -6,11 +6,12 @@ import javax.jms.TextMessage;
 
 import org.springframework.jms.core.JmsTemplate;
 
+import DemonMQ.common.MQBase;
 import DemonMQ.common.SpringUtil;
 
 public class TestReceiver {
 
-	private static Receiver receiver = SpringUtil.getBean("receiver",
+	private static MQBase receiver = SpringUtil.getBean("receiver",
 			Receiver.class);
 
 	/**
@@ -19,7 +20,7 @@ public class TestReceiver {
 	public static void main(String[] args) {
 		System.out.println("初始化消息消费者");
 		for (;;) {
-			String msg=receiver.receiveMessage();
+			String msg=receiver.handleMessage();
 		if (!msg.equals(""))
 				System.out.println(msg);
 		}
