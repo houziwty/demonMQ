@@ -16,26 +16,48 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-public class Sender {
+import DemonMQ.common.MQBase;
 
-	    private JmsTemplate jmsTemplate;
-	    //getter and setter
-	    public JmsTemplate getJmsTemplate() {
-	        return jmsTemplate;
-	    }
-	    public void setJmsTemplate(JmsTemplate jmsTemplate) {
-	        this.jmsTemplate = jmsTemplate;
-	    }
-	    
-	    public void sendInfo() {
-	        jmsTemplate.send(new MessageCreator() {
-	            public Message createMessage(Session session) throws JMSException {
-	                MapMessage message = session.createMapMessage();
-	                message.setString("lastName", "ppp");
-	                System.out.println("发送成功");
-	                return message;
-	            }
+public class Sender extends MQBase {
 
-	        });
-	    }
+	public Sender() {
+		key = "lastName";
+	}
+
+	public void sendInfo() {
+		jmsTemplate.send(new MessageCreator() {
+			public Message createMessage(Session session) throws JMSException {
+				MapMessage message = session.createMapMessage();
+				message.setString("lastName", "ppp");
+				System.out.println("发送成功");
+				return message;
+			}
+
+		});
+	}
+
+	@Override
+	public Boolean handleMessage() {
+		 Boolean result = false;
+
+		try {
+			jmsTemplate.send(new MessageCreator() {
+
+				@Override
+				public Message createMessage(Session session)
+						throws JMSException {
+					MapMessage message = session.createMapMessage();
+					message.setString(getKey(), "test");
+
+					return message;
+				}
+			});
+			result = true;
+		} catch (Exception ex) {
+			result = false;
+		} finally {
+
+		}
+		return result;
+	}
 }

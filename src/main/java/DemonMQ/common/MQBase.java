@@ -22,6 +22,6 @@ public abstract class MQBase {
 		return key;
 	}
 
-	public abstract <T>T handleMessage();
+	public abstract <T> T handleMessage();
 
 }

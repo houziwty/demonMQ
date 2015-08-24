@@ -21,18 +21,13 @@ public class Receiver extends MQBase {
 	/**
 	 * 构造函数
 	 */
-	public Receiver() {
-		
+	public Receiver() {	
 		key="lastName";
 	}
-
-	
-
 	@Override
 	public String handleMessage() {
 		String my = "";
 		MapMessage message = (MapMessage) jmsTemplate.receive();
-		
 		try {
 			if (message != null)
 				my = message.getString(getKey());
