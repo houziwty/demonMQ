@@ -53,30 +53,8 @@
 
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-			<version>5.7.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-pool</artifactId>
-			<version>5.11.1</version>
-		</dependency>
-		<!-- <dependency> <groupId>org.apache.activemq</groupId> <artifactId>activemq-camel</artifactId> 
-			<version>5.11.1</version> </dependency> -->
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-console</artifactId>
-			<version>5.11.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-jaas</artifactId>
-			<version>5.11.1</version>
-		</dependency>
-		<dependency>
-			<groupId>geronimo-spec</groupId>
-			<artifactId>geronimo-spec-jms</artifactId>
-			<version>1.1-rc4</version>
+			<artifactId>activemq-client</artifactId>
+			<version>5.12.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
