@@ -50,7 +50,6 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>4.2.0.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-client</artifactId>
