@@ -10,17 +10,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import DemonMQ.base.JmsReceiverBase;
+import DemonMQ.common.model.ResultModel;
+import DemonMQ.common.model.ReturnCode;
 import DemonMQ.server.JmsReceiverService;
 import DemonMQ.util.MessageType;
-
-
 
 public class JmsReceiverServiceImpl extends JmsReceiverBase implements
 		JmsReceiverService {
 
 	private static JmsReceiverServiceImpl instance;
 	private static ReentrantLock initLock = new ReentrantLock();
-	private static final Logger looger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(JmsReceiverServiceImpl.class);
 
 	public static JmsReceiverServiceImpl getInstance() {
@@ -39,7 +39,9 @@ public class JmsReceiverServiceImpl extends JmsReceiverBase implements
 		}
 		return instance;
 	}
-
+public JmsReceiverServiceImpl(){
+	
+}
 	private String receiverMessageStr() {
 		String text = null;
 		// TODO Auto-generated method stub
@@ -53,59 +55,57 @@ public class JmsReceiverServiceImpl extends JmsReceiverBase implements
 
 				// looger.info("接收的消息：" + "\n" + text);
 			} else {
-				looger.info("接收的消息：" + "\n" + message);
+				LOGGER.info("接收的消息：" + "\n" + message);
 			}
 		} catch (Exception ex) {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
-			looger.debug("receiverMessageStr:" + ex.getStackTrace());
-		} 
-//		finally {
-//			try {
-//				super.close();
-//			} catch (JMSException e) {
-//				looger.debug("receiverMessageStr close:" + e.getStackTrace());
-//				e.printStackTrace();
-//			}
-//		}
+			LOGGER.debug("receiverMessageStr:" + ex.getStackTrace());
+		}
+		// finally {
+		// try {
+		// super.close();
+		// } catch (JMSException e) {
+		// looger.debug("receiverMessageStr close:" + e.getStackTrace());
+		// e.printStackTrace();
+		// }
+		// }
 		return text;
 	}
 
-	public Object receiverMessage(String msgType) {
+	public ResultModel receiverMessage(String msgType,String subject) {
+		ResultModel result=new ResultModel();
+		
 		Object msg = null;
 		try {
+			super.setSubject(subject);
+			super.initialize();
 			super.start();
 			if (MessageType.TEXT.getText().equals(msgType)) {
 				msg = receiverMessageStr();
+				result.setReturnCode(ReturnCode.SUCCESS.initValue());
+				result.setBody(msg);
 			}
 		} catch (Exception ex) {
-			looger.debug("receiverMessage:" + ex.getStackTrace());
+			LOGGER.debug("receiverMessage:" + ex.getStackTrace());
 			ex.printStackTrace();
+			result.setReturnCode(ReturnCode.FAIL.initValue());
+			result.setBody(null);
 		} finally {
 			try {
 				super.close();
 			} catch (JMSException e) {
 				// TODO Auto-generated catch block
-				looger.debug("receiverclose:" + e.getStackTrace());
-e.printStackTrace();
+				LOGGER.debug("receiverclose:" + e.getStackTrace());
+				e.printStackTrace();
 			}
 		}
 		// TODO Auto-generated method stub
-		return msg;
+		return result;
 	}
 
-	public  void init() {
-		// TODO Auto-generated method stub
-		try {
-			
-			super.initialize();
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
+
+
 
 }
