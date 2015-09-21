@@ -60,7 +60,7 @@ public class JmsSenderServiceImpl extends JmsSendBase implements
 		try {
 			super.setSubject(subject);
 			super.initialize();
-			super.start();
+		//	super.start();
 			if (MessageType.TEXT.getText().equals(msgType)) {
 				sendMessageStr(obj.toString());
 				return;

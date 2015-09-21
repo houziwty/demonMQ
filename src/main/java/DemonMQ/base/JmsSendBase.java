@@ -48,6 +48,7 @@ public class JmsSendBase {
 		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
 				user, passWord, url);
 		conn = connectionFactory.createConnection();
+		conn.start();
 		// 事务性会话，自动确认消息
 		session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		// 消息的目的地（Queue/Topic）

@@ -80,7 +80,7 @@ public JmsReceiverServiceImpl(){
 		try {
 			super.setSubject(subject);
 			super.initialize();
-			super.start();
+		//	super.start();
 			if (MessageType.TEXT.getText().equals(msgType)) {
 				msg = receiverMessageStr();
 				result.setReturnCode(ReturnCode.SUCCESS.initValue());

@@ -43,6 +43,7 @@ public class JmsReceiverBase {
 				user, passWord, url);
 		// 连接工厂创建一个jms connection
 		conn = connectionFactory.createConnection();
+		conn.start();
 		// 是生产和消费的一个单线程上下文。会话用于创建消息的生产者，消费者和消息。会话提供了一个事务性的上下文。
 		session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE); // 不支持事务
 		// 目的地是客户用来指定他生产消息的目标还有他消费消息的来源的对象.
