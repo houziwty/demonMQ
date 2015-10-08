@@ -11,7 +11,7 @@
    <!--创建连接工厂-->
     <bean id="connectionFactory"
         class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="tcp://123.56.9.107:61616"></property>
+        <property name="brokerURL" value="tcp://127.0.0.1:61616"></property>
        <!--  <property name="brokerURL" value="tcp://localhost:61616"></property> -->
     </bean>
     <!-- 声明ActiveMQ消息目标,目标可以是一个队列，也可以是一个主题ActiveMQTopic-->
@@ -25,11 +25,11 @@
         <property name="receiveTimeout" value="600"></property>
 
     </bean>
-    <bean id="sender" class="DemonMQ.Sender">
+    <bean id="sender" class="DemonMQ.server.Impl.Sender">
         <property name="jmsTemplate" ref="jmsTemplate"></property>
 
     </bean>
-    <bean id="receiver" class="DemonMQ.Receiver">
+    <bean id="receiver" class="DemonMQ.server.Impl.Receiver">
         <property name="jmsTemplate" ref="jmsTemplate"></property>
     </bean>
 
