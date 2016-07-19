@@ -2,14 +2,14 @@ package DemonMQ.util;
 
 
 
-public enum MessageType {
+public enum AcMessageType {
 	TEXT(1, "text"), MAP(2, "map"), STREAM(3, "stream"), OBJECT(4, "object"), BTYES(
 			5, "bytes");
 
 	private int value;
 	private String text;
 
-	MessageType(int value, String text) {
+	AcMessageType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
@@ -18,12 +18,12 @@ public enum MessageType {
 		return text;
 	}
 
-	public static MessageType valueof(String value) {
+	public static AcMessageType valueof(String value) {
 		return valueOf(Integer.valueOf(value));
 	}
 
-	public static MessageType valueOf(int i) {
-		for (MessageType r : MessageType.values()) {
+	public static AcMessageType valueOf(int i) {
+		for (AcMessageType r : AcMessageType.values()) {
 			if (r.value == i)
 				return r;
 

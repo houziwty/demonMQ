@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import DemonMQ.base.JmsSendBase;
 import DemonMQ.server.JmsSenderService;
-import DemonMQ.util.MessageType;
+import DemonMQ.util.AcMessageType;
 
 
 
@@ -61,17 +61,17 @@ public class JmsSenderServiceImpl extends JmsSendBase implements
 			super.setSubject(subject);
 			super.initialize();
 		//	super.start();
-			if (MessageType.TEXT.getText().equals(msgType)) {
+			if (AcMessageType.TEXT.getText().equals(msgType)) {
 				sendMessageStr(obj.toString());
 				return;
 			}
 			// 发送Map消息
-			if (MessageType.MAP.getText().equals(msgType)) {
+			if (AcMessageType.MAP.getText().equals(msgType)) {
 				// sendMessageMap((Map) obj);
 				return;
 			}
 			// 发送流消息
-			if (MessageType.STREAM.getText().equals(msgType)) {
+			if (AcMessageType.STREAM.getText().equals(msgType)) {
 				// String streamValue = "ActiveMQ stream Message!";
 				// StreamMessage msg = session.createStreamMessage();
 				// msg.writeString(streamValue);
@@ -80,7 +80,7 @@ public class JmsSenderServiceImpl extends JmsSendBase implements
 				// producer.send(msg);
 			}
 			// 发送对象消息
-			if (MessageType.OBJECT.getText().equals(msgType)) {
+			if (AcMessageType.OBJECT.getText().equals(msgType)) {
 				// JmsObjectMessageBean jmsObject = new JmsObjectMessageBean(
 				// "ActiveMQ Object Message", 18, false);
 				// ObjectMessage msg = session.createObjectMessage();
@@ -88,7 +88,7 @@ public class JmsSenderServiceImpl extends JmsSendBase implements
 				// producer.send(msg);
 			}
 			// 发送字节消息
-			if (MessageType.BTYES.getText().equals(msgType)) {
+			if (AcMessageType.BTYES.getText().equals(msgType)) {
 				// String byteValue = "字节消息";
 				// BytesMessage msg = session.createBytesMessage();
 				// msg.writeBytes(byteValue.getBytes());

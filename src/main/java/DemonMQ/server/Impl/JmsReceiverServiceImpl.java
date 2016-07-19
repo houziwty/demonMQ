@@ -13,7 +13,7 @@ import DemonMQ.base.JmsReceiverBase;
 import DemonMQ.common.model.ResultModel;
 import DemonMQ.common.model.ReturnCode;
 import DemonMQ.server.JmsReceiverService;
-import DemonMQ.util.MessageType;
+import DemonMQ.util.AcMessageType;
 
 public class JmsReceiverServiceImpl extends JmsReceiverBase implements
 		JmsReceiverService {
@@ -81,7 +81,7 @@ public JmsReceiverServiceImpl(){
 			super.setSubject(subject);
 			super.initialize();
 		//	super.start();
-			if (MessageType.TEXT.getText().equals(msgType)) {
+			if (AcMessageType.TEXT.getText().equals(msgType)) {
 				msg = receiverMessageStr();
 				result.setReturnCode(ReturnCode.SUCCESS.initValue());
 				result.setBody(msg);
