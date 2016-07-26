@@ -21,6 +21,7 @@ public class TestReceiver {
 	public static void main(String[] args) {
 		System.out.println("初始化消息消费者");
 		for (;;) {
+			
 			String msg=receiver.handleMessage();
 		if (!msg.equals(""))
 				System.out.println(msg);
