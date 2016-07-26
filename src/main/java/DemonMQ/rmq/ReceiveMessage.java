@@ -1,4 +1,4 @@
-package DemonMQ.rmq;
+package demonmq.rmq;
 
 import java.io.IOException;
 

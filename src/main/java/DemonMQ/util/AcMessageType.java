@@ -1,4 +1,4 @@
-package DemonMQ.util;
+package demonmq.util;
 
 
 

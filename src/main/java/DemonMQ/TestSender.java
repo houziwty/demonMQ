@@ -1,4 +1,4 @@
-package DemonMQ;
+package demonmq;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -9,8 +9,8 @@ import javax.jms.Session;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-import DemonMQ.common.SpringUtil;
-import DemonMQ.server.Impl.Sender;
+import demonmq.common.SpringUtil;
+import demonmq.server.Impl.Sender;
 
 public class TestSender {
 

@@ -1,4 +1,4 @@
-package DemonMQ.server;
+package demonmq.server;
 
 
 public interface JmsSenderService {

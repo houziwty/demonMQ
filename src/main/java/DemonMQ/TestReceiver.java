@@ -1,4 +1,4 @@
-package DemonMQ;
+package demonmq;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -6,9 +6,9 @@ import javax.jms.TextMessage;
 
 import org.springframework.jms.core.JmsTemplate;
 
-import DemonMQ.common.MQBase;
-import DemonMQ.common.SpringUtil;
-import DemonMQ.server.Impl.Receiver;
+import demonmq.common.MQBase;
+import demonmq.common.SpringUtil;
+import demonmq.server.Impl.Receiver;
 
 public class TestReceiver {
 

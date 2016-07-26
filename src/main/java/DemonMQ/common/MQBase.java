@@ -1,4 +1,4 @@
-package DemonMQ.common;
+package demonmq.common;
 
 import javax.jms.MapMessage;
 

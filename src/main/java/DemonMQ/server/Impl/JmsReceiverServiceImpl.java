@@ -1,4 +1,4 @@
-package DemonMQ.server.Impl;
+package demonmq.server.Impl;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -9,11 +9,11 @@ import org.apache.activemq.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import DemonMQ.base.JmsReceiverBase;
-import DemonMQ.common.model.ResultModel;
-import DemonMQ.common.model.ReturnCode;
-import DemonMQ.server.JmsReceiverService;
-import DemonMQ.util.AcMessageType;
+import demonmq.base.JmsReceiverBase;
+import demonmq.common.model.ResultModel;
+import demonmq.common.model.ReturnCode;
+import demonmq.server.JmsReceiverService;
+import demonmq.util.AcMessageType;
 
 public class JmsReceiverServiceImpl extends JmsReceiverBase implements
 		JmsReceiverService {

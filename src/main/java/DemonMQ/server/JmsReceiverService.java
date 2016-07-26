@@ -1,6 +1,6 @@
-package DemonMQ.server;
+package demonmq.server;
 
-import DemonMQ.common.model.ResultModel;
+import demonmq.common.model.ResultModel;
 
 public interface JmsReceiverService {
 	

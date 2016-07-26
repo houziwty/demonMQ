@@ -1,6 +1,6 @@
-package DemonMQ.common.model;
+package demonmq.common.model;
 
-import DemonMQ.util.EnumInteger;
+import demonmq.util.EnumInteger;
 
 
 public enum ReturnCode implements EnumInteger {

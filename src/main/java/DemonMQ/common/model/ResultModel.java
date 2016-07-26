@@ -1,4 +1,4 @@
-package DemonMQ.common.model;
+package demonmq.common.model;
 
 public class ResultModel {
 	private int returnCode;

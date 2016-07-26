@@ -1,4 +1,4 @@
-package DemonMQ.common;
+package demonmq.common;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package DemonMQ.base;
+package demonmq.base;
 
 import javax.jms.Connection;
 import javax.jms.Destination;
@@ -9,7 +9,7 @@ import javax.jms.Session;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import DemonMQ.util.MQConfig;
+import demonmq.util.MQConfig;
 
 
 public class JmsReceiverBase {

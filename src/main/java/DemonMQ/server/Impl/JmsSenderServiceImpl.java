@@ -1,4 +1,4 @@
-package DemonMQ.server.Impl;
+package demonmq.server.Impl;
 
 
 import java.util.Map;
@@ -11,9 +11,9 @@ import javax.jms.TextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import DemonMQ.base.JmsSendBase;
-import DemonMQ.server.JmsSenderService;
-import DemonMQ.util.AcMessageType;
+import demonmq.base.JmsSendBase;
+import demonmq.server.JmsSenderService;
+import demonmq.util.AcMessageType;
 
 
 

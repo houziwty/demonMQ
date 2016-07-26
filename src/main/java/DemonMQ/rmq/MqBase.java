@@ -1,4 +1,4 @@
-package DemonMQ.rmq;
+package demonmq.rmq;
 
 import com.rabbitmq.client.ShutdownListener;
 import com.rabbitmq.client.ShutdownSignalException;

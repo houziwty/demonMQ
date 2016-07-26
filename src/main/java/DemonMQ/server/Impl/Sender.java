@@ -1,4 +1,4 @@
-package DemonMQ.server.Impl;
+package demonmq.server.Impl;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -16,7 +16,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-import DemonMQ.common.MQBase;
+import demonmq.common.MQBase;
 
 public class Sender extends MQBase {
 

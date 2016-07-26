@@ -1,4 +1,4 @@
-package DemonMQ.util;
+package demonmq.util;
 
 import java.io.IOException;
 import java.io.InputStream;
