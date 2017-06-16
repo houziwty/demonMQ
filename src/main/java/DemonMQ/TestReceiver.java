@@ -1,9 +1,5 @@
 package demonmq;
 
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.TextMessage;
-
 import org.springframework.jms.core.JmsTemplate;
 
 import demonmq.common.MQBase;
