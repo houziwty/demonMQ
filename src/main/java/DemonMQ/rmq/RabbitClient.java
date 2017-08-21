@@ -2,7 +2,8 @@ package demonmq.rmq;
 
 
 import com.rabbitmq.client.Consumer;
-import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.DefaultConsumer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,5 +24,7 @@ public class RabbitClient {
     }
     private ConcurrentHashMap<String,Consumer>consumerCache=new ConcurrentHashMap<>();
 
-    private ConcurrentHashMap<String,QueueingConsumer>pullConsumerCache = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String,DefaultConsumer>pullConsumerCache = new ConcurrentHashMap<>();
+
+
 }
