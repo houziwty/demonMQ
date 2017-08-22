@@ -25,6 +25,6 @@ public class RabbitClient {
     private ConcurrentHashMap<String,Consumer>consumerCache=new ConcurrentHashMap<>();
 
     private ConcurrentHashMap<String,DefaultConsumer>pullConsumerCache = new ConcurrentHashMap<>();
-
+   private ConcurrentHashMap<String,RabbitConnectionFactory.RabbitChannel>pullChannelCache=new ConcurrentHashMap<>();
 
 }
