@@ -6,9 +6,11 @@ import com.rabbitmq.client.ConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -48,56 +50,76 @@ public class RabbitConnectionFactory {
     private static AtomicInteger channelId = new AtomicInteger(0);
 
 
-    private static ConnectionFactory getConnectionFactory(RabbitConnectionBean bean){
-ConnectionFactory connectionFactory=factoryMap.get(bean);
+    private static ConnectionFactory getConnectionFactory(RabbitConnectionBean bean) {
+        ConnectionFactory connectionFactory = factoryMap.get(bean);
+        if (connectionFactory == null) {
+            logger.info("创建新的rabbitmq连接工厂");
+            connectionFactory = new ConnectionFactory();
+            connectionFactory.setHost(bean.getHost());
+            connectionFactory.setPort(bean.getPort());
+            connectionFactory.setVirtualHost(bean.getvHost());
+            connectionFactory.setUsername(bean.getUsername());
+            connectionFactory.setPassword(bean.getPassword());
+            factoryMap.put(bean, connectionFactory);
+        }
         return connectionFactory;
     }
 
-    public static class RabbitConnection {
-        private Connection connection;
-        private List<RabbitChannel> channelList;
-
-        public Connection getConnection() {
-            return connection;
-        }
-
-        public void setConnection(Connection connection) {
-            this.connection = connection;
-        }
-
-        public List<RabbitChannel> getChannelList() {
-            return channelList;
-        }
-
-        public void setChannelList(List<RabbitChannel> channelList) {
-            this.channelList = channelList;
-        }
+    public static Connection getNewConnection(RabbitConnectionBean bean) throws IOException, TimeoutException {
+        return getConnectionFactory(bean).newConnection();
     }
 
-    public static class RabbitChannel {
-        private int channelId;
 
-        private Channel channel;
-        public RabbitChannel() {
-        }
-        public RabbitChannel(int channelId, Channel channel) {
-            this.channelId = channelId;
-            this.channel = channel;
-        }
-        public Channel getChannel() {
-            return channel;
-        }
+}
 
-        public void setChannel(Channel channel) {
-            this.channel = channel;
-        }
+public static class RabbitConnection {
+    private Connection connection;
+    private List<RabbitChannel> channelList;
 
-        public int getChannelId() {
-            return channelId;
-        }
-
-        public void setChannelId(int channelId) {
-            this.channelId = channelId;
-        }
+    public Connection getConnection() {
+        return connection;
     }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public List<RabbitChannel> getChannelList() {
+        return channelList;
+    }
+
+    public void setChannelList(List<RabbitChannel> channelList) {
+        this.channelList = channelList;
+    }
+}
+
+public static class RabbitChannel {
+    private int channelId;
+
+    private Channel channel;
+
+    public RabbitChannel() {
+    }
+
+    public RabbitChannel(int channelId, Channel channel) {
+        this.channelId = channelId;
+        this.channel = channel;
+    }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
+    }
+
+    public int getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(int channelId) {
+        this.channelId = channelId;
+    }
+}
 }
