@@ -69,9 +69,6 @@ public class RabbitConnectionFactory {
         return getConnectionFactory(bean).newConnection();
     }
 
-
-}
-
 public static class RabbitConnection {
     private Connection connection;
     private List<RabbitChannel> channelList;
