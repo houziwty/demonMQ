@@ -3,10 +3,12 @@ package demonmq.rmq;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,54 +71,87 @@ public class RabbitConnectionFactory {
         return getConnectionFactory(bean).newConnection();
     }
 
-public static class RabbitConnection {
-    private Connection connection;
-    private List<RabbitChannel> channelList;
-
-    public Connection getConnection() {
-        return connection;
+    public static RabbitConnection getRabbitConnection(RabbitConnectionBean bean) throws IOException, TimeoutException {
+        List<RabbitConnection> rabbitConnections = connectionMap.get(bean);
+        if (rabbitConnections == null || rabbitConnections.size() == 0) {
+            connectionLock.lock();
+            RabbitConnection rabbitConnection = null;
+            rabbitConnections = new ArrayList<>();
+            try {
+                Connection connection = getNewConnection(bean);
+                rabbitConnection = new RabbitConnection();
+                rabbitConnection.setConnection(connection);
+                rabbitConnection.setChannelList(new ArrayList<RabbitChannel>());
+                rabbitConnections.add(rabbitConnection);
+                connectionMap.put(bean, rabbitConnections);
+            } finally {
+                connectionLock.unlock();
+            }
+            return rabbitConnection;
+        } else if (rabbitConnections.size() < connectionCacheSize) {
+            if (connectionLock.tryLock()) {
+                try {
+                    Connection connection = getNewConnection(bean);
+                    RabbitConnection rabbitConnection = new RabbitConnection();
+                    rabbitConnection.setConnection(connection);
+                    rabbitConnection.setChannelList(new ArrayList<RabbitChannel>());
+                    rabbitConnections.add(rabbitConnection);
+                } finally {
+                    connectionLock.unlock();
+                }
+            }
+        }
+        return rabbitConnections.get((int) (Math.random() * rabbitConnections.size()));
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public static class RabbitConnection {
+        private Connection connection;
+        private List<RabbitChannel> channelList;
+
+        public Connection getConnection() {
+            return connection;
+        }
+
+        public void setConnection(Connection connection) {
+            this.connection = connection;
+        }
+
+        public List<RabbitChannel> getChannelList() {
+            return channelList;
+        }
+
+        public void setChannelList(List<RabbitChannel> channelList) {
+            this.channelList = channelList;
+        }
     }
 
-    public List<RabbitChannel> getChannelList() {
-        return channelList;
+    public static class RabbitChannel {
+        private int channelId;
+
+        private Channel channel;
+
+        public RabbitChannel() {
+        }
+
+        public RabbitChannel(int channelId, Channel channel) {
+            this.channelId = channelId;
+            this.channel = channel;
+        }
+
+        public Channel getChannel() {
+            return channel;
+        }
+
+        public void setChannel(Channel channel) {
+            this.channel = channel;
+        }
+
+        public int getChannelId() {
+            return channelId;
+        }
+
+        public void setChannelId(int channelId) {
+            this.channelId = channelId;
+        }
     }
-
-    public void setChannelList(List<RabbitChannel> channelList) {
-        this.channelList = channelList;
-    }
-}
-
-public static class RabbitChannel {
-    private int channelId;
-
-    private Channel channel;
-
-    public RabbitChannel() {
-    }
-
-    public RabbitChannel(int channelId, Channel channel) {
-        this.channelId = channelId;
-        this.channel = channel;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
-
-    public int getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(int channelId) {
-        this.channelId = channelId;
-    }
-}
 }
