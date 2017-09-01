@@ -104,6 +104,18 @@ public class RabbitConnectionFactory {
         return rabbitConnections.get((int) (Math.random() * rabbitConnections.size()));
     }
 
+    public static RabbitChannel getChannel(RabbitConnection connection) {
+        if (connection != null && connection.getChannelList() != null) {
+            channelLock.lock();
+            RabbitChannel rabbitChannel = new RabbitChannel();
+            rabbitChannel.setChannelId(channelId.incrementAndGet());
+
+        } else if (connection.getChannelList().size() < channelCacheSize) {
+
+        }
+        return null;
+    }
+
     public static class RabbitConnection {
         private Connection connection;
         private List<RabbitChannel> channelList;
